@@ -1,0 +1,22 @@
+{
+  "plants": [
+    {
+      "id": 1,
+      "name": "Aloe Vera",
+      "image": "./images/aloe.jpg",
+      "price": 15.99
+    },
+    {
+      "id": 2,
+      "name": "Snake Plant",
+      "image": "./images/snake.jpg",
+      "price": 22.50
+    },
+    {
+      "id": 3,
+      "name": "Peace Lily",
+      "image": "./images/peace-lily.jpg",
+      "price": 18.75
+    }
+  ]
+}

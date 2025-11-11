@@ -1,70 +1,100 @@
-# Getting Started with Create React App
+# 🌿 Plantsy Admin App
+Plantsy Admin is a React-based admin dashboard built to manage a plant store's inventory. It connects to a local JSON server backend (port 6001) and demonstrates CRUD integration between a React frontend and a RESTful API. This project was created as part of a frontend coding challenge and is ideal for learning interactive admin UIs with local backend persistence.
+Features
+- View all plants in a clean list with images, names, prices, and availability
+- Add new plants with a simple form (persisted to the JSON backend)
+- Mark plants as sold out (toggle)
+- Search plants by name (client-side filtering)
+- Edit plant prices (PATCH)
+- Delete plants with persistence across reloads
+- Responsive layout and basic accessibility considerations
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+Tech highlights
+- Frontend: React (functional components + hooks)
+- Backend: json-server (local mock REST API running on port 6001)
+- Data persistence: json-server's db.json
+- State & side effects: useState, useEffect, and controlled forms
 
-## Available Scripts
+Requirements
+- Node.js (recommended >= 14)
+- npm (or yarn/pnpm)
+- git
 
-In the project directory, you can run:
+Quick start (local)
+1. Clone the repository:
+```bash
+git clone https://github.com/Th3GEM/plantsy-admin.git
+cd plantsy-admin
+```
 
-### `npm start`
+1. Install dependencies:
+```bash
+npm install
+# or
+# yarn install
+```
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+1. Start the local JSON backend (json-server) and the React app:
+```bash
+# Start the backend (runs json-server on port 6001)
+npm run server
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+# In a new terminal, start the frontend
+npm start
+```
 
-### `npm test`
+4. Open the app:
+- Frontend: http://localhost:3000
+- Backend (json-server UI / API): http://localhost:6001
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+Backend API endpoints (json-server)
+- GET /plants — fetch all plants
+- GET /plants/:id — fetch a single plant
+- POST /plants — add a new plant
+- PATCH /plants/:id — update a plant (e.g., price, availability)
+- DELETE /plants/:id — remove a plant
 
-### `npm run build`
+Example usage with curl:
+```bash
+# Get all plants
+curl http://localhost:6001/plants
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+# Add a plant
+curl -X POST http://localhost:6001/plants \
+  -H "Content-Type: application/json" \
+  -d '{"name":"Fiddle Leaf Fig","price":45,"image":"url","inStock":true}'
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+# Update a plant price
+curl -X PATCH http://localhost:6001/plants/1 \
+  -H "Content-Type: application/json" \
+  -d '{"price":49.99}'
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+# Delete a plant
+curl -X DELETE http://localhost:6001/plants/1
+```
 
-### `npm run eject`
+Project structure (example)
+```
+/public
+/src
+  /components
+    PlantList.jsx
+    PlantCard.jsx
+    NewPlantForm.jsx
+    SearchBar.jsx
+  App.jsx
+  index.jsx
+db.json                 # json-server data file
+package.json
+```
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+Scripts (typical)
+- npm start — start the React dev server (create-react-app / similar)
+- npm run build — build for production
+- npm run server — start json-server at port 6001 (e.g., json-server --watch db.json --port 6001)
+- npm test — run tests (if present)
+- npm run lint — run linters (if present)
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
-
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
-
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
-
-### Analyzing the Bundle Size
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
-
-### Making a Progressive Web App
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
-
-### Advanced Configuration
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Advanced behavior & notes
+- The frontend uses React hooks for component state and side effects (useState, useEffect).
+- All create, update, and delete operations are persisted to the json-server's db.json file so changes survive page reloads.
